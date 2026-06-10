@@ -8,11 +8,14 @@ ApplicationWindow {
     id: app
     x:0
     y:0
-    width: app.portrait?350:Screen.width
+    width: app.portrait?608:Screen.width
     height: Screen.height
     visible: true
     title: "Zool LT"
-    color: "#222831"
+    color: "black"
+    flags: Qt.FramelessWindowHint
+
+
 
     property int fs: app.portrait?xApp.width*0.06:Screen.width*0.02
     property bool portrait: true
@@ -21,16 +24,21 @@ ApplicationWindow {
         property color backgroundColor: 'black'
         property color fontColor: 'white'
     }
-    Item {
+    Rectangle {
         id: xApp
+        color: 'transparent'
+        border.width: 1
+        border.color: 'red'
         anchors.fill: parent
 
         // Instancia de nuestro componente personalizado
         TimeLineView {
             id: timeline
             //anchors.centerIn: parent
-            width: parent.width
-            height: parent.height
+            width: parent.width-app.fs*0.2
+            height: parent.height-app.fs*0.2
+            anchors.centerIn: parent
+            //z: parent.z-1
         }
 
         // Botonera de control inferior para avanzar y retroceder
@@ -76,6 +84,10 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Esc'
         onActivated: Qt.quit()
+    }
+    Shortcut{
+        sequence: 'Ctrl+Down'
+        onActivated: app.y+=10
     }
     Shortcut{
         sequence: 'Left'

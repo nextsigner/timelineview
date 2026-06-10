@@ -9,6 +9,8 @@ Rectangle {
     radius: 8
     clip: true
 
+    property int wi: r.width / 3.5
+
     readonly property alias currentIndex: timelineList.currentIndex
     readonly property alias count: timelineList.count
 
@@ -61,7 +63,8 @@ Rectangle {
             delegate: Item {
                 id: delegateItem
                 // Ajustamos el ancho para dar un poco más de aire a los datos detallados
-                width: r.width / 3.5
+                //width: r.width / 3.5
+                width: r.wi
                 height: timelineList.height
 
                 property bool isSelected: index === timelineList.currentIndex
@@ -88,7 +91,7 @@ Rectangle {
                 // Nodo (Círculo)
                 Rectangle {
                     id: nodeCircle
-                    width: isSelected ? app.fs : app.fs*0.75
+                    width: isSelected ? (index===0 || index===timelineList.model.count-1?app.fs*1.5:app.fs) : app.fs*0.75
                     height: width
                     radius: width / 2
                     //color: isSelected ? "#00adb5" : "#3a3a45"
@@ -98,6 +101,15 @@ Rectangle {
                     //anchors.verticalCenterOffset: -30
                     Behavior on width { NumberAnimation { duration: 200 } }
                     Behavior on color { ColorAnimation { duration: 200 } }
+                    Rectangle{
+                        width: parent.parent.width
+                        height: app.fs*0.5
+                        color: r.color
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.right: parent.left
+                        visible: index===0 && timelineList.currentIndex>0
+
+                    }
                     Rectangle{
                         id: bg
                         color: apps.backgroundColor
@@ -175,9 +187,11 @@ Rectangle {
             }
             Rectangle {
                 id: line
-                width: r.width
+                width: r.width*10//-r.wi*0.5-app.fs*2
                 height: app.fs*0.1
                 color: apps.fontColor
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.horizontalCenterOffset: timelineList.currentIndex===0?app.fs*1.75+((line.width-r.width)/2):(timelineList.currentIndex===timelineList.model.count-1?0-(app.fs*2+((line.width-r.width)/2)):0)
                 anchors.verticalCenter: parent.verticalCenter
                 z: parent.z-1
             }
@@ -231,7 +245,7 @@ Rectangle {
                             id: datoDes
                             text: r.d3.replace(/\. /g, '\n\n')
                             width: r.width-app.fs*0.5
-                            font.pixelSize: app.fs*0.75
+                            font.pixelSize: app.fs*0.5
                             color: apps.fontColor
                             wrapMode: Text.WordWrap
 
