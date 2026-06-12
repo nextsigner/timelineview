@@ -1,10 +1,12 @@
 import QtQuick 2.14
 import QtQuick.Controls 2.14
+import ZmButton 1.0
 
 Rectangle {
     id: r
     //implicitWidth: 600
     //implicitHeight: 220 // Incrementado ligeramente para acomodar los nuevos datos
+    anchors.bottom: parent.bottom
     color: "#1e1e24"
     radius: 8
     clip: true
@@ -19,11 +21,32 @@ Rectangle {
     property string d1: 'Dato 1'
     property string d2: 'Dato 2'
     property string d3: 'Dato 3'
+    Behavior on height{NumberAnimation{duration: 500; easing.type: Easing.InOutBounce}}
 
+    Rectangle{
+        width: r.width
+        height: app.fs*0.1
+        color: 'red'
+        visible: r.height!==xApp.height
+    }
 
     Column{
         anchors.top: parent.top
         anchors.horizontalCenter: parent.horizontalCenter
+        Row{
+            id: btns
+            spacing: app.fs
+            anchors.horizontalCenter: parent.horizontalCenter
+            ZmButton{
+                text: '->'
+                fs: app.fs*0.75
+                width:app.fs*1.5
+                isCuad: true
+                onClicked:{
+                    toogleModeView()
+                }
+            }
+        }
         Column{
             id: colGlobalCtx
             spacing: app.fs*0.25
@@ -85,6 +108,7 @@ Rectangle {
 
                         r.d2=model.title
                         r.d3=model.description
+                        loadZm(model.year, model.month, model.day, model.hour, model.minute, model.gmt, model.lat, model.lon, model.alt, 'T')
                     }
                 }
 
@@ -269,6 +293,13 @@ Rectangle {
             timelineList.currentIndex--;
         }
     }
+    function toogleModeView(){
+        if(r.height===xApp.height){
+            r.height=xApp.height*0.5
+        }else{
+            r.height=xApp.height
+        }
+    }
 
     // Función para cargar el JSON con el nuevo esquema extendido
     function loadData(jsonString) {
@@ -307,5 +338,25 @@ Rectangle {
     // Función auxiliar interna para rellenar ceros a la izquierda (ej: 05 en vez de 5)
     function pad(n) {
         return n < 10 ? "0" + n : n;
+    }
+    function loadZm(a, m, d, h, min, gmt, lat, lon, alt, hsys){
+        let s=''
+        let date=new Date(a, m-1, d, h, min)
+        console.log('Cargando: '+date.toString())
+        let va=date.getFullYear()
+        let vm=date.getMonth()+1
+        let vd=date.getDate()
+        let vh=date.getHours()
+        let vmin=date.getMinutes()
+        let jf=getSweJson('trans', va, vm, vd, vh, vmin, gmt, lat, lon, alt, hsys)
+        app.currentJson=jf
+        app.modo='trans'
+        //app.uFilePathLoaded='Ahora '+vd+'/'+vm+'/'+va+' '+vh+':'+vmin
+        s +=app.uFilePathLoaded+'\nTránsitos planetarios global/mundial.\n\n'
+        s += getList(jf)
+        txt.text = s
+        zmt.onlySetDate=true
+        zmt.targetDate=d
+
     }
 }

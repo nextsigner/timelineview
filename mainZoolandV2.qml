@@ -1,12 +1,11 @@
-import QtQuick 2.7
-import QtQuick.Controls 2.12
-import QtQuick.Window 2.0
-//import QtQuick.Controls.Material
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Controls.Material
 
 import swe 1.0
 import unik.Unik 1.0
 //import Qt.labs.settings
-import Qt.labs.settings 1.0
+import QtCore
 
 import ZoolandMap 3.0
 import ZmMoveTime 1.0
@@ -15,12 +14,10 @@ import ZoolandNumCalc 1.0
 import ZmButton 1.0
 import ZmComboBox 1.0
 
-import TimeLineView 1.0
-
 ApplicationWindow {
     id: app
-    width: Qt.platform.os==='android'?Screen.width:608
-    height: Qt.platform.os==='android'?Screen.height:Screen.height
+    width: Qt.platform.os==='android'?Screen.width:350
+    height: Qt.platform.os==='android'?Screen.height:700
     x: 0
     visible: true
     visibility: Qt.platform.os==='android'?'FullScreen':'Windowed'
@@ -104,270 +101,23 @@ ApplicationWindow {
     }
     Rectangle{
         id: xApp
-        anchors.fill: parent
-        //width: Qt.platform.os==='android'?Screen.width*0.9:app.width
-        //height: Qt.platform.os==='android'?parent.height:700
+        width: Qt.platform.os==='android'?Screen.width*0.9:app.width
+        height: Qt.platform.os==='android'?parent.height:700
         color: 'transparent'
         border.width: 0
         border.color: 'blue'
-        //clip: true
+        clip: true
         anchors.centerIn: parent
-        Rectangle{
-            id: xZoolandMap
-            width: xApp.width
-            height: xApp.height
-            color: 'transparent'
-            border.width: 0
-            border.color: 'green'
-            anchors.horizontalCenter: parent.horizontalCenter
-            //visible: app.uFilePathLoaded!==''
-            ZoolandMap{
-                id: zoolMap
-                width: !app.appRotated?parent.width:parent.width//app.height
-                //height: !app.appRotated?parent.height:width//-app.fs
-                height: xApp.height
-                fs:Qt.platform.os==='android'?(!app.appRotated?app.fs:app.fs*0.5):app.fs
-                border.width: 0
-                border.color: 'blue'
-                //parent: xApp
-                //parent: app.appRotated?xApp:xZoolandMap
-                anchors.centerIn: parent
-                //anchors.horizontalCenter: parent.horizontalCenter
-                //z: parent.z-1
-                Rectangle{
-                    width: app.fs*1.5
-                    height: width
-                    color: apps.fontColor
-                    opacity: 0.25
-                    radius: width*0.2
-                    //anchors.verticalCenter: parent.verticalCenter
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    visible: !zoolMap.xToolsTop.parent.visible
-                    MouseArea{
-                        anchors.fill: parent
-                        hoverEnabled: true
-                        onEntered: zoolMap.xToolsTop.parent.visible=true
-                    }
-                }
-                Rectangle{
-                    width: app.fs*1.5
-                    height: width
-                    color: apps.fontColor
-                    opacity: 0.25
-                    radius: width*0.2
-                    anchors.bottom: parent.bottom
-                    anchors.bottomMargin: app.fs
-                    //visible: !zoolMap.colTools.visible
-                    MouseArea{
-                        anchors.fill: parent
-                        hoverEnabled: true
-                        onEntered: zoolMap.colTools.visible=true
-                    }
-                }
-                Rectangle{
-                    id: xZEV
-                    color: apps.backgroundColor
-                    anchors.fill: parent
-                    visible: false//zoolElementsView.visible
-                    onVisibleChanged: {
-                        if(visible)zoolElementsView.load(app.currentJson)
-                    }
-                    MouseArea{
-                        anchors.fill: parent
-                        onClicked: xZEV.visible=false
-                    }
-                    //Ocultar xZEV
-                    ZmButton{
-                        text: '\uf00d'
-                        fs: !app.appRotated?app.fs*0.75:app.fs*0.35
-                        width:!app.appRotated?app.fs*1.5:app.fs*0.75
-                        isCuad: true
-                        anchors.right: parent.right
-                        onClicked:{
-                            xZEV.visible=false
-                        }
-                    }
-                    ZoolElementsView{
-                        id: zoolElementsView
-                        //visible: false
-                    }
-                }
-
-            }
-            ZmMoveTime{
-                id: zmt
-                anchors.bottom: parent.bottom
-                anchors.bottomMargin: app.fs*0.5
-                /*onGmtChanged:{
-                    if(!app.currentJson)return
-                    if(onlySetDate){
-                        onlySetDate=false
-                        return
-                    }
-                }*/
-                onTargetDateChanged: {
-                    if(!app.currentJson)return
-                    if(onlySetDate){
-                        onlySetDate=false
-                        return
-                    }
-                    let p=app.currentJson.params
-                    let vd=p.d
-                    let vm=p.m
-                    let va=p.a
-                    let vh=p.h
-                    let vmin=p.min
-                    let vlat=p.lat
-                    let vlon=p.lon
-                    let valt=p.alt
-                    let vgmt=p.gmt
-                    /*let d = new Date(va, vm-1, vd, vh, vmin)
-                    d.setDate(d.getDate()+currentValue)
-                    let nvd=d.getDate()
-                    let nvm=d.getMonth()+1
-                    let nva=d.getFullYear()
-                    let nvh=d.getHours()
-                    let nvmin=d.getMinutes()*/
-                    let nvd=targetDate.getDate()
-                    let nvm=targetDate.getMonth()+1
-                    let nva=targetDate.getFullYear()
-                    let nvh=targetDate.getHours()
-                    let nvmin=targetDate.getMinutes()
-                    txtMoveTime.text=''+nvd+'/'+nvm+'/'+nva+' '+nvh+':'+nvmin+'hs'+' '+app.modo
-                    tLoadMoveTime.setNewDate(targetDate)
-                    tLoadMoveTime.d=targetDate
-                    tLoadMoveTime.restart()
-                }
-                Timer{
-                    id: tLoadMoveTime
-                    running: false
-                    repeat: false
-                    interval: 1000
-                    property var d
-                    onTriggered:setNewDate(d)
-                    function setNewDate(d){
-                        if(d===zmt.targetDate)return
-                        let s=''
-                        let p
-                        if(app.modo==='trans'){
-                            if(zoolMap.zm.ev){
-                                p=app.currentJsonExt.params
-                            }else{
-                                p=app.currentJson.params
-                            }
-                        }else{
-                            //s='App Modo: '+app.modo
-                            p=app.currentJson.params
-                            //s+=JSON.stringify(p, null, 2)
-                            //txt.text=s
-                            //return
-                        }
-                        let nvd=d.getDate()
-                        let nvm=d.getMonth()+1
-                        let nva=d.getFullYear()
-                        let nvh=d.getHours()
-                        let nvmin=d.getMinutes()
-                        txtMoveTime.text=''+nvd+'/'+nvm+'/'+nva+' '+nvh+':'+nvmin+'hs'+' '+app.modo
-
-                        p.gmt=zmt.gmt
-                        if((!p.t || p.t==='vn') && !zoolMap.zm.ev){
-                            p.a=nva
-                            p.m=nvm
-                            p.d=nvd
-                            p.h=nvh
-                            p.min=nvmin
-                            loadZmFromParams(p)
-                            app.isSaved=false
-                            printData(app.currentJson)
-                            return
-                        }
-                        if(app.modo==='trans_ext'){
-                            let jf=getSweJson('trans_ext', nva, nvm, nvd, nvh, nvmin, p.gmt, p.lat, p.lon, p.alt, p.hsys)
-                            app.currentJsonExt=jf
-                            app.modo='trans_ext'
-                            zoolMap.zm.objBodiesCircleExt.load(jf)
-                            zmt.onlySetDate=true
-                            zmt.targetDate=d
-                            return
-                        }
-                        //s='Cargando...'+app.modo+'\n'
-                        //s+=txtMoveTime.text+'\n'
-                        //s+=' '+nva+' '+nvm+' '+nvd+' '+nvh+' '+nvmin+' '+vgmt+' '+vlat+' '+vlon+' '+valt+' '+'T'+'\n'
-                        //txt.text=p.t
-                        //return
-
-                        let jf=getSweJson(p.t, p.a, p.m, p.d, p.h, p.min, p.gmt, p.lat, p.lon, p.alt, p.hsys)
-                        //txt.text=jf
-                        //return
-                        //s+=JSON.stringify(jf, null, 2)
-                        //txt.text=s
-                        //return
-
-                        if(app.modo==='trans' && zoolMap.zm.ev){
-                            app.currentJsonExt=jf
-                            zoolMap.zm.objBodiesCircleExt.load(jf)
-                            zoolMap.zm.objHousesCircleExt.load(jf)
-                            s+='Tránsitos:\n\n'
-                            s+='Fecha de Nacimiento:\n'
-                            s+=getMom(app.currentJson)
-                            s+='Tránsito:\n'
-                            s+=getMom(jf)
-                            s+=getList(jf)
-                            s+='\nCarta Natal\n'
-                            s+=getList(app.currentJson)
-                        }else{
-                            //s='Cargando...'+app.modo
-                            //txt.text=s
-                            //return
-                            app.currentJson=jf
-                            app.uFilePathLoaded='Tránsito '+vd+'/'+vm+'/'+va+' '+vh+':'+vmin
-                            s +=app.uFilePathLoaded+'\nTránsitos planetarios global/mundial.\n\n'
-                            s += getList(jf)
-                        }
-                        txt.text = s
-
-                    }
-                }
-                Text{
-                    id: txtMoveTime
-                    text:''
-                    font.pixelSize: !app.appRotated?app.fs:app.fs*0.5
-                    color: apps.fontColor
-                    anchors.bottom: parent.top
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    visible: text!=='' && zmt.modoSlider
-                    Rectangle{
-                        width: parent.contentWidth+app.fs*0.4
-                        height: parent.contentHeight+app.fs*0.4
-                        color: apps.backgroundColor
-                        radius: app.fs*0.1
-                        border.width: 1
-                        border.color: apps.fontColor
-                        opacity: 0.75
-                        anchors.centerIn: parent
-                        z: parent.z-1
-                    }
-                }
-            }
-
-        }
-
-        TimeLineView{
-            id: timeline
-            width: parent.width
-            height: parent.height
-        }
         Flickable{
             anchors.fill: parent
             contentWidth: parent.width
             contentHeight: col.height+app.fs*10//txt.contentHeight+app.fs*3
-            visible: false
             Column{
                 id: col
                 spacing: app.fs*2
                 width: parent.width
                 anchors.horizontalCenter: parent.horizontalCenter
-                visible: false//!app.appRotated
+                visible: !app.appRotated
                 Rectangle{
                     id: xTop
                     width: xApp.width
@@ -556,7 +306,7 @@ ApplicationWindow {
                     id: rowBtns
                     spacing: app.fs*0.5
                     anchors.horizontalCenter: parent.horizontalCenter
-                    parent: zoolMap//zoolMap.parent===xZoolandMap?col:zoolMap.xToolsTop
+                    parent: zoolMap.parent===xZoolandMap?col:zoolMap.xToolsTop
                     //Calcular Numerología
                     ZmButton{
                         text: '\uf1ec'
@@ -698,6 +448,242 @@ ApplicationWindow {
                         }
                     }
 
+                }
+                Rectangle{
+                    id: xZoolandMap
+                    width: xApp.width
+                    height: width
+                    color: 'transparent'
+                    border.width: 0
+                    border.color: 'green'
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    visible: app.uFilePathLoaded!==''
+                    ZoolandMap{
+                        id: zoolMap
+                        width: !app.appRotated?parent.width:parent.width//app.height
+                        height: !app.appRotated?parent.height:width//-app.fs
+                        fs:Qt.platform.os==='android'?(!app.appRotated?app.fs:app.fs*0.5):app.fs
+                        border.width: 0
+                        border.color: 'blue'
+                        parent: app.appRotated?xApp:xZoolandMap
+                        anchors.centerIn: parent
+                        //anchors.horizontalCenter: parent.horizontalCenter
+                        //z: parent.z-1
+                        Rectangle{
+                            width: app.fs*1.5
+                            height: width
+                            color: apps.fontColor
+                            opacity: 0.25
+                            radius: width*0.2
+                            //anchors.verticalCenter: parent.verticalCenter
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            visible: !zoolMap.xToolsTop.parent.visible
+                            MouseArea{
+                                anchors.fill: parent
+                                hoverEnabled: true
+                                onEntered: zoolMap.xToolsTop.parent.visible=true
+                            }
+                        }
+                        Rectangle{
+                            width: app.fs*1.5
+                            height: width
+                            color: apps.fontColor
+                            opacity: 0.25
+                            radius: width*0.2
+                            anchors.bottom: parent.bottom
+                            anchors.bottomMargin: app.fs
+                            visible: !zoolMap.colTools.visible
+                            MouseArea{
+                                anchors.fill: parent
+                                hoverEnabled: true
+                                onEntered: zoolMap.colTools.visible=true
+                            }
+                        }
+                        ZmMoveTime{
+                            id: zmt
+                            anchors.bottom: parent.bottom
+                            anchors.bottomMargin: app.fs*0.5
+                            /*onGmtChanged:{
+                                if(!app.currentJson)return
+                                if(onlySetDate){
+                                    onlySetDate=false
+                                    return
+                                }
+                            }*/
+                            onTargetDateChanged: {
+                                if(!app.currentJson)return
+                                if(onlySetDate){
+                                    onlySetDate=false
+                                    return
+                                }
+                                let p=app.currentJson.params
+                                let vd=p.d
+                                let vm=p.m
+                                let va=p.a
+                                let vh=p.h
+                                let vmin=p.min
+                                let vlat=p.lat
+                                let vlon=p.lon
+                                let valt=p.alt
+                                let vgmt=p.gmt
+                                /*let d = new Date(va, vm-1, vd, vh, vmin)
+                                d.setDate(d.getDate()+currentValue)
+                                let nvd=d.getDate()
+                                let nvm=d.getMonth()+1
+                                let nva=d.getFullYear()
+                                let nvh=d.getHours()
+                                let nvmin=d.getMinutes()*/
+                                let nvd=targetDate.getDate()
+                                let nvm=targetDate.getMonth()+1
+                                let nva=targetDate.getFullYear()
+                                let nvh=targetDate.getHours()
+                                let nvmin=targetDate.getMinutes()
+                                txtMoveTime.text=''+nvd+'/'+nvm+'/'+nva+' '+nvh+':'+nvmin+'hs'+' '+app.modo
+                                tLoadMoveTime.setNewDate(targetDate)
+                                tLoadMoveTime.d=targetDate
+                                tLoadMoveTime.restart()
+                            }
+                            Timer{
+                                id: tLoadMoveTime
+                                running: false
+                                repeat: false
+                                interval: 1000
+                                property var d
+                                onTriggered:setNewDate(d)
+                                function setNewDate(d){
+                                    if(d===zmt.targetDate)return
+                                    let s=''
+                                    let p
+                                    if(app.modo==='trans'){
+                                        if(zoolMap.zm.ev){
+                                            p=app.currentJsonExt.params
+                                        }else{
+                                            p=app.currentJson.params
+                                        }
+                                    }else{
+                                        //s='App Modo: '+app.modo
+                                        p=app.currentJson.params
+                                        //s+=JSON.stringify(p, null, 2)
+                                        //txt.text=s
+                                        //return
+                                    }
+                                    let nvd=d.getDate()
+                                    let nvm=d.getMonth()+1
+                                    let nva=d.getFullYear()
+                                    let nvh=d.getHours()
+                                    let nvmin=d.getMinutes()
+                                    txtMoveTime.text=''+nvd+'/'+nvm+'/'+nva+' '+nvh+':'+nvmin+'hs'+' '+app.modo
+
+                                    p.gmt=zmt.gmt
+                                    if((!p.t || p.t==='vn') && !zoolMap.zm.ev){
+                                        p.a=nva
+                                        p.m=nvm
+                                        p.d=nvd
+                                        p.h=nvh
+                                        p.min=nvmin
+                                        loadZmFromParams(p)
+                                        app.isSaved=false
+                                        printData(app.currentJson)
+                                        return
+                                    }
+                                    if(app.modo==='trans_ext'){
+                                        let jf=getSweJson('trans_ext', nva, nvm, nvd, nvh, nvmin, p.gmt, p.lat, p.lon, p.alt, p.hsys)
+                                        app.currentJsonExt=jf
+                                        app.modo='trans_ext'
+                                        zoolMap.zm.objBodiesCircleExt.load(jf)
+                                        zmt.onlySetDate=true
+                                        zmt.targetDate=d
+                                        return
+                                    }
+                                    //s='Cargando...'+app.modo+'\n'
+                                    //s+=txtMoveTime.text+'\n'
+                                    //s+=' '+nva+' '+nvm+' '+nvd+' '+nvh+' '+nvmin+' '+vgmt+' '+vlat+' '+vlon+' '+valt+' '+'T'+'\n'
+                                    //txt.text=p.t
+                                    //return
+
+                                    let jf=getSweJson(p.t, p.a, p.m, p.d, p.h, p.min, p.gmt, p.lat, p.lon, p.alt, p.hsys)
+                                    //txt.text=jf
+                                    //return
+                                    //s+=JSON.stringify(jf, null, 2)
+                                    //txt.text=s
+                                    //return
+
+                                    if(app.modo==='trans' && zoolMap.zm.ev){
+                                        app.currentJsonExt=jf
+                                        zoolMap.zm.objBodiesCircleExt.load(jf)
+                                        zoolMap.zm.objHousesCircleExt.load(jf)
+                                        s+='Tránsitos:\n\n'
+                                        s+='Fecha de Nacimiento:\n'
+                                        s+=getMom(app.currentJson)
+                                        s+='Tránsito:\n'
+                                        s+=getMom(jf)
+                                        s+=getList(jf)
+                                        s+='\nCarta Natal\n'
+                                        s+=getList(app.currentJson)
+                                    }else{
+                                        //s='Cargando...'+app.modo
+                                        //txt.text=s
+                                        //return
+                                        app.currentJson=jf
+                                        app.uFilePathLoaded='Tránsito '+vd+'/'+vm+'/'+va+' '+vh+':'+vmin
+                                        s +=app.uFilePathLoaded+'\nTránsitos planetarios global/mundial.\n\n'
+                                        s += getList(jf)
+                                    }
+                                    txt.text = s
+
+                                }
+                            }
+                            Text{
+                                id: txtMoveTime
+                                text:''
+                                font.pixelSize: !app.appRotated?app.fs:app.fs*0.5
+                                color: apps.fontColor
+                                anchors.bottom: parent.top
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                visible: text!=='' && zmt.modoSlider
+                                Rectangle{
+                                    width: parent.contentWidth+app.fs*0.4
+                                    height: parent.contentHeight+app.fs*0.4
+                                    color: apps.backgroundColor
+                                    radius: app.fs*0.1
+                                    border.width: 1
+                                    border.color: apps.fontColor
+                                    opacity: 0.75
+                                    anchors.centerIn: parent
+                                    z: parent.z-1
+                                }
+                            }
+                        }
+                        Rectangle{
+                            id: xZEV
+                            color: apps.backgroundColor
+                            anchors.fill: parent
+                            visible: false//zoolElementsView.visible
+                            onVisibleChanged: {
+                                if(visible)zoolElementsView.load(app.currentJson)
+                            }
+                            MouseArea{
+                                anchors.fill: parent
+                                onClicked: xZEV.visible=false
+                            }
+                            //Ocultar xZEV
+                            ZmButton{
+                                text: '\uf00d'
+                                fs: !app.appRotated?app.fs*0.75:app.fs*0.35
+                                width:!app.appRotated?app.fs*1.5:app.fs*0.75
+                                isCuad: true
+                                anchors.right: parent.right
+                                onClicked:{
+                                    xZEV.visible=false
+                                }
+                            }
+                            ZoolElementsView{
+                                id: zoolElementsView
+                                //visible: false
+                            }
+                        }
+
+                    }
                 }
                 Text{
                     id: txt
@@ -937,16 +923,6 @@ ApplicationWindow {
     }
 
     Component.onCompleted: {
-        var jsonTestData = JSON.parse(u.getFile('./jsons/trans_pluton.json'))
-        // Convertimos el array de objetos a string JSON para simular el comportamiento real
-        var jsonString = JSON.stringify(jsonTestData);
-        //Cargamos los datos en el componente
-        timeline.loadData(jsonString);
-
-
-        return
-        //CODIGO INACTIVO
-
         //u.checkPermissions()
         if(u.folderExist('/home/ns'))app.dev=true
         let s=''
@@ -983,20 +959,6 @@ ApplicationWindow {
         onActivated: {
             if(Qt.platform.os!=='android')Qt.quit()
         }
-    }
-    Shortcut{
-        sequence: 'Down'
-        onActivated: {
-            timeline.toogleModeView()
-        }
-    }
-    Shortcut{
-        sequence: 'Left'
-        onActivated: timeline.back()
-    }
-    Shortcut{
-        sequence: 'Right'
-        onActivated: timeline.next()
     }
     function updateFileList(){
         //let appDataPath=u.getPath(4)
@@ -1278,104 +1240,3 @@ ApplicationWindow {
         return s
     }
 }
-
-//import QtQuick 2.14
-//import QtQuick.Window 2.14
-//import QtQuick.Controls 2.14
-
-//import TimeLineView 1.0
-
-//ApplicationWindow {
-//    id: app
-//    x:0
-//    y:0
-//    width: app.portrait?608:Screen.width
-//    height: Screen.height
-//    visible: true
-//    title: "Zool LT"
-//    color: "black"
-//    flags: Qt.FramelessWindowHint
-
-
-
-//    property int fs: app.portrait?xApp.width*0.06:Screen.width*0.02
-//    property bool portrait: true
-//    Item{
-//        id: apps
-//        property color backgroundColor: 'black'
-//        property color fontColor: 'white'
-//    }
-//    Rectangle {
-//        id: xApp
-//        color: 'transparent'
-//        border.width: 1
-//        border.color: 'red'
-//        anchors.fill: parent
-
-//        // Instancia de nuestro componente personalizado
-//        TimeLineView {
-//            id: timeline
-//            //anchors.centerIn: parent
-//            width: parent.width-app.fs*0.2
-//            height: parent.height-app.fs*0.2
-//            anchors.centerIn: parent
-//            //z: parent.z-1
-//        }
-
-//        // Botonera de control inferior para avanzar y retroceder
-//        Row {
-//            anchors.top: timeline.bottom
-//            anchors.topMargin: 20
-//            //anchors.centerX: parent.centerX
-//            anchors.horizontalCenter: parent.horizontalCenter
-//            spacing: 20
-
-//            Button {
-//                text: "◀ Atrás"
-//                enabled: timeline.currentIndex > 0
-//                onClicked: timeline.back()
-//            }
-
-//            // Indicador de posición actual
-//            Text {
-//                text: (timeline.count > 0) ? (timeline.currentIndex + 1) + " / " + timeline.count : "0 / 0"
-//                color: "#eeeeee"
-//                font.pointSize: 12
-//                anchors.verticalCenter: parent.verticalCenter
-//            }
-
-//            Button {
-//                text: "Adelante ▶"
-//                enabled: timeline.currentIndex < timeline.count - 1
-//                onClicked: timeline.next()
-//            }
-//        }
-//    }
-
-//    // Simulación de carga de datos JSON al iniciar la app
-//    Component.onCompleted: {
-//        var jsonTestData = JSON.parse(u.getFile('./jsons/trans_pluton.json'))
-
-//        // Convertimos el array de objetos a string JSON para simular el comportamiento real
-//        var jsonString = JSON.stringify(jsonTestData);
-
-//        //Cargamos los datos en el componente
-//        timeline.loadData(jsonString);
-//    }
-//    Shortcut{
-//        sequence: 'Esc'
-//        onActivated: Qt.quit()
-//    }
-//    Shortcut{
-//        sequence: 'Ctrl+Down'
-//        onActivated: app.y+=10
-//    }
-//    Shortcut{
-//        sequence: 'Left'
-//        onActivated: timeline.back()
-//    }
-//    Shortcut{
-//        sequence: 'Right'
-//        onActivated: timeline.next()
-//    }
-//}
