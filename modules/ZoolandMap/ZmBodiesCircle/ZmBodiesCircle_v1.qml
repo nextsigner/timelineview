@@ -30,6 +30,7 @@ Item{
         onTriggered: setAspsCircleWidth()
     }*/
     function load(j){
+        //console.log('JSON: '+JSON.stringify(j,null, 2))
         r.aGdecsInt=[]
         r.aGdecsExt=[]
         if(!r.isBack){
@@ -44,7 +45,7 @@ Item{
             }else{
                 r.aGdecsExt.push(j.pc['c'+i].gdec)
             }
-            xBodies.children[i].isRetro=j.pc['c'+i] .isRetro
+            xBodies.children[i].isRetro=!j.pc['c'+i].retro?false:j.pc['c'+i].retro
             xBodies.children[i].pos=0
         }
         ordenarPosiciones()

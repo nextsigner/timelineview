@@ -1,1 +1,1 @@
-Se agrega ZoolandMap
+Se cambia la posición del zoolMap el baja timelineview

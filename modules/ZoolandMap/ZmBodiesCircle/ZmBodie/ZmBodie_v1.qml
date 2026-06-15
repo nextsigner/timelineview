@@ -132,7 +132,8 @@ Rectangle{
             width: parent.width
             height: parent.height
             anchors.centerIn: parent
-            source: Qt.platform.os==='android'?'assets:/imgs/imgs_v2/glifos/'+zoolMap.bodiesRes[r.numBodie]+'.svg':'file:///home/ns/nsp/zoolandv2/android/assets/imgs/imgs_v2/glifos/'+zoolMap.bodiesRes[r.numBodie]+'.svg'
+            //source: Qt.platform.os==='android'?'assets:/imgs/imgs_v2/glifos/'+zoolMap.bodiesRes[r.numBodie]+'.svg':'file:///home/ns/nsp/timelineview/imgs/imgs_v2/glifos/'+zoolMap.bodiesRes[r.numBodie]+'.svg'
+            source: 'file:///home/ns/nsp/timelineview/imgs/imgs_v2/glifos/'+zoolMap.bodiesRes[r.numBodie]+'.svg'
 
             //sourceSize: Qt.size(width, height)
 

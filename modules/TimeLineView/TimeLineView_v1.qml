@@ -11,6 +11,7 @@ Rectangle {
     radius: 8
     clip: true
 
+    property alias ta: datoDes
     property int wi: r.width / 3.5
 
     readonly property alias currentIndex: timelineList.currentIndex
@@ -356,7 +357,7 @@ Rectangle {
         s += getList(jf)
         txt.text = s
         zmt.onlySetDate=true
-        zmt.targetDate=d
+        zmt.targetDate=date
 
     }
 }
