@@ -43,6 +43,7 @@ Rectangle {
                 fs: app.fs*0.75
                 width:app.fs*1.5
                 isCuad: true
+                visible: false
                 onClicked:{
                     toogleModeView()
                 }
@@ -310,6 +311,7 @@ Rectangle {
             var dataData = j.eventos;
             r.d0=j.title
             r.d00=j.description
+            zoolMap.currentIndexBodie=j.bodie
             for (var i = 0; i < dataData.length; i++) {
                 var d = dataData[i];
                 nodesModel.append({

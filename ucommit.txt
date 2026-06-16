@@ -1,1 +1,1 @@
-Se cambia la posición del zoolMap el baja timelineview
+i7: Se corrije json trans plutón

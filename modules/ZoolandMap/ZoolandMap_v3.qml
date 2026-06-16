@@ -142,6 +142,8 @@ Rectangle {
         color: 'transparent'
         anchors.left: parent.left
         anchors.leftMargin: !app.appRotated?0:0-((xApp.width-r.width)*0.5)
+        anchors.top: parent.top
+        anchors.topMargin: 0+(timeline.y*0.5)
         visible: r.currentIndexBodie>-1 && r.currentIndexSign>-1 && r.currentIndexHouse>-1
         MouseArea {
             anchors.fill: parent
@@ -162,7 +164,7 @@ Rectangle {
         Text {
             id: txtBodieSelected
             text: '<b>'+r.aBodies[r.currentIndexBodie]+' en '+app.aSigns[r.currentIndexSign]+'</b><br><b>'+r.currentStrDdMmSs+' Casa '+parseInt(r.currentIndexHouse+1)+'</b>'
-            font.pixelSize: app.appRotated?app.fs*0.5:app.fs
+            font.pixelSize: app.fs*0.5//app.appRotated?app.fs*0.5:app.fs
             color: apps.fontColor
             anchors.centerIn: parent
         }
@@ -175,6 +177,8 @@ Rectangle {
         color: 'transparent'
         anchors.right: parent.right
         anchors.rightMargin: !app.appRotated?0:0-((xApp.width-r.width)*0.5)
+        anchors.top: parent.top
+        anchors.topMargin: 0+(timeline.y*0.5)
         visible: r.currentIndexBodieExt>-1 && r.currentIndexSignExt>-1 && r.currentIndexHouseExt>-1
         MouseArea {
             anchors.fill: parent
@@ -195,7 +199,7 @@ Rectangle {
         Text {
             id: txtBodieSelectedExt
             text: '<b>'+r.aBodies[r.currentIndexBodieExt]+' en '+app.aSigns[r.currentIndexSignExt]+'</b><br><b>'+r.currentStrDdMmSsExt+' Casa '+parseInt(r.currentIndexHouseExt+1)+'</b>'
-            font.pixelSize: app.appRotated?app.fs*0.5:app.fs
+            font.pixelSize: app.fs*0.5//app.appRotated?app.fs*0.5:app.fs
             color: 'white'
             anchors.centerIn: parent
         }
