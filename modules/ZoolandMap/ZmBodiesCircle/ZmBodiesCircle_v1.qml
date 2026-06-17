@@ -45,7 +45,9 @@ Item{
             }else{
                 r.aGdecsExt.push(j.pc['c'+i].gdec)
             }
-            xBodies.children[i].isRetro=!j.pc['c'+i].retro?false:j.pc['c'+i].retro
+            //xBodies.children[i].isRetro=!j.pc['c'+i].retro?false:j.pc['c'+i].retro
+            //console.log('RETRO '+zoolMap.aBodies[i]+': '+j.pc['c'+i].isRetro)
+            xBodies.children[i].isRetro=j.pc['c'+i].isRetro>0//!j.pc['c'+i].retro?false:j.pc['c'+i].retro
             xBodies.children[i].pos=0
         }
         ordenarPosiciones()

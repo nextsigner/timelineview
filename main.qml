@@ -19,13 +19,14 @@ import TimeLineView 1.0
 
 ApplicationWindow {
     id: app
-    width: Qt.platform.os==='android'?Screen.width:608
-    height: Qt.platform.os==='android'?Screen.height:Screen.height
+    width: 608//Qt.platform.os==='android'?Screen.width:608
+    height: 1080//Qt.platform.os==='android'?Screen.height:Screen.height
     x: 0
     visible: true
     visibility: Qt.platform.os==='android'?'FullScreen':'Windowed'
     title: 'TimeLineView'
     color: 'black'
+    flags: Qt.FramelessWindowHint
     //property alias app: r
     property bool appRotated: Qt.platform.os==='android'?Screen.width>Screen.height:false
     //property var zoolMap
@@ -109,7 +110,7 @@ ApplicationWindow {
         //height: Qt.platform.os==='android'?parent.height:700
         color: 'transparent'
         border.width: 0
-        border.color: 'blue'
+        border.color: 'white'
         //clip: true
         anchors.centerIn: parent
         Rectangle{
@@ -357,6 +358,7 @@ ApplicationWindow {
             id: timeline
             width: parent.width
             height: parent.height
+            //anchors.centerIn: parent
         }
         Flickable{
             anchors.fill: parent
@@ -873,6 +875,12 @@ ApplicationWindow {
         }
 
 
+        Rectangle{
+            anchors.fill: parent
+            color: 'transparent'
+            border.width: 2
+            border.color: 'white'
+        }
         /*Button{
             id: bot1
             text: 'Cargar'

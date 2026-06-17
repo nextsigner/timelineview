@@ -52,6 +52,7 @@ Rectangle {
         Column{
             id: colGlobalCtx
             spacing: app.fs*0.25
+            anchors.horizontalCenter: parent.horizontalCenter
             Text{
                 id: globalTitle
                 text: r.d0
@@ -59,6 +60,7 @@ Rectangle {
                 font.pixelSize: app.fs
                 color: apps.fontColor
                 wrapMode: Text.WordWrap
+                anchors.horizontalCenter: parent.horizontalCenter
             }
             Text{
                 id: globalCtx
@@ -228,11 +230,12 @@ Rectangle {
 
         Rectangle{
             id: xDatos
-            width: r.width
+            width: r.width-app.fs
             height: r.height-colGlobalCtx.height-timelineList.height-parent.spacing*3
             color: apps.backgroundColor
             border.width: 0
             border.color: 'blue'
+            anchors.horizontalCenter: parent.horizontalCenter
             Column{
                 id: colDatos
                 spacing: app.fs*0.5
@@ -244,6 +247,7 @@ Rectangle {
                     font.pixelSize: app.fs*0.5
                     color: apps.fontColor
                     wrapMode: Text.WordWrap
+                    anchors.horizontalCenter: parent.horizontalCenter
                 }
                 Text{
                     id: datoFecha
@@ -253,6 +257,7 @@ Rectangle {
                     color: apps.fontColor
                     horizontalAlignment: Text.AlignHCenter
                     wrapMode: Text.WordWrap
+                    anchors.horizontalCenter: parent.horizontalCenter
                 }
                 Rectangle{
                     width: parent.parent.width
@@ -262,11 +267,13 @@ Rectangle {
                     border.width: 2
                     border.color: apps.fontColor
                     clip: true
+                    anchors.horizontalCenter: parent.horizontalCenter
                     Flickable{
                         id: flk
                         anchors.fill: parent
                         contentWidth: width
                         contentHeight: datoDes.contentHeight+app.fs*10
+                        anchors.centerIn: parent
                         TextArea{
                             id: datoDes
                             text: r.d3.replace(/\. /g, '\n\n')
@@ -274,6 +281,7 @@ Rectangle {
                             font.pixelSize: app.fs*0.5
                             color: apps.fontColor
                             wrapMode: Text.WordWrap
+                            anchors.centerIn: parent
 
                         }
                     }

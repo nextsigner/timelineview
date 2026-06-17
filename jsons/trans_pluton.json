@@ -1,5 +1,5 @@
 {
-  "title": "Entrada de Plutón a los signos desde el año 1912 hasta 2095",
+  "title": "Entrada de Plutón a los signos desde el año 1912 hasta 2068",
   "description": "El planeta Plutón, tarda entre 18 y 20 años en recorrer °30 de longitud de arco en la rueda zodiacal, es decir, tarda ese tiempo aproximado en transitar por todo un signo del zodiaco que tienen en total °30, por 12, suman los °360.",
   "bodie": 9,
   "eventos": [
@@ -132,11 +132,11 @@
     {
       "title": "Plutón en Aries",
       "description": "Ingreso primario de Plutón al grado 0° de Aries. 1) Sociopolíticamente, el cierre del siglo XXI observa una gobernanza global hiper-descentralizada y el surgimiento de nuevas potencias económicas basadas enteramente en la soberanía tecnológica. 2) Socialmente, las sociedades humanas experimentan una longevidad promedio sin precedentes, superando rutinariamente los cien años de vida con óptima salud. 3) Tecnológicamente, la fusión nuclear comercial provee energía limpia, ilimitada y gratuita a casi la totalidad de los continentes urbanizados de la Tierra. 4) Científicamente, la física de materiales celebra la creación de superconductores a temperatura ambiente estables, revolucionando el transporte masivo planetario. 5) Religiosamente, la humanidad experimenta un renacimiento de preguntas metafísicas fundamentales ante el contacto cercano con entornos de exploración espacial habitados. 6) Culturalmente, las artes conmemoran el fin de un siglo de transformaciones extremas volviendo a valorar las expresiones análogas puras y la artesanía física. 7) Estadísticamente, la curva demográfica global inicia su primer decrecimiento controlado, situando la población en unos estables 10.000 millones de habitantes. 8) En lo económico, los mercados financieros tradicionales han sido reemplazados por sistemas de intercambio predictivo automatizados basados en el bien común. 9) La infraestructura urbana mundial es completamente simbiótica con la naturaleza, borrando los límites históricos entre las grandes ciudades y los ecosistemas salvajes. 10) Los primeros asentamientos científicos permanentes en Marte y colonias orbitales lunares operan con independencia jurídica y social de sus naciones de origen terrestres.",
-      "day": 21,
-      "month": 9,
-      "year": 2095,
-      "hour": 2,
-      "minute": 45,
+      "day": 23,
+      "month": 2,
+      "year": 2068,
+      "hour": 14,
+      "minute": 25,
       "gmt": 0.0,
       "place": "United Kingdom",
       "lat": 51.4779,
