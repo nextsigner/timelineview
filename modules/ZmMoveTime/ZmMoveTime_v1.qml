@@ -23,7 +23,7 @@ Rectangle {
     readonly property int limit: width * 0.4
     property int lastStep: 0 // Para trackear el cambio relativo
 
-    property bool modoSlider: true
+    property bool modoSlider: false
     property bool onlySetDate: false
     property int cA: 0
     property int cM: 0

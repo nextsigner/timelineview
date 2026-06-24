@@ -199,7 +199,7 @@ ApplicationWindow {
             ZmMoveTime{
                 id: zmt
                 anchors.bottom: parent.bottom
-                anchors.bottomMargin: app.fs*0.5
+                anchors.bottomMargin: 0+(timeline.y)//+app.fs*0.5
                 /*onGmtChanged:{
                     if(!app.currentJson)return
                     if(onlySetDate){
@@ -208,8 +208,12 @@ ApplicationWindow {
                     }
                 }*/
                 onTargetDateChanged: {
-                    if(!app.currentJson)return
+                    if(!app.currentJson){
+                        console.log('Json vacio!')
+                        return
+                    }
                     if(onlySetDate){
+                        console.log('ZMT onlySetDate!!!')
                         onlySetDate=false
                         return
                     }
@@ -283,6 +287,14 @@ ApplicationWindow {
                             printData(app.currentJson)
                             return
                         }
+                        if(app.modo==='trans'){
+                            let jf=getSweJson('trans', nva, nvm, nvd, nvh, nvmin, p.gmt, p.lat, p.lon, p.alt, p.hsys)
+                            app.currentJson=jf
+                            zoolMap.zm.objBodiesCircle.load(jf)
+                            zmt.onlySetDate=true
+                                zmt.targetDate=d
+                            return
+                        }
                         if(app.modo==='trans_ext'){
                             let jf=getSweJson('trans_ext', nva, nvm, nvd, nvh, nvmin, p.gmt, p.lat, p.lon, p.alt, p.hsys)
                             app.currentJsonExt=jf
@@ -322,7 +334,7 @@ ApplicationWindow {
                             //txt.text=s
                             //return
                             app.currentJson=jf
-                            app.uFilePathLoaded='Tránsito '+vd+'/'+vm+'/'+va+' '+vh+':'+vmin
+                            //app.uFilePathLoaded='Tránsito '+vd+'/'+vm+'/'+va+' '+vh+':'+vmin
                             s +=app.uFilePathLoaded+'\nTránsitos planetarios global/mundial.\n\n'
                             s += getList(jf)
                         }
@@ -946,6 +958,7 @@ ApplicationWindow {
     }
 
     Component.onCompleted: {
+        app.modo='trans'
         var jsonTestData = JSON.parse(u.getFile('./jsons/trans_pluton.json'))
         // Convertimos el array de objetos a string JSON para simular el comportamiento real
         var jsonString = JSON.stringify(jsonTestData);
@@ -988,13 +1001,19 @@ ApplicationWindow {
         //apps.aspLineWidth=2
     }
     Shortcut{
+        sequence: 'Ctrl+Esc'
+        onActivated: {
+            Qt.quit()
+        }
+    }
+    Shortcut{
         sequence: 'Esc'
         onActivated: {
             if(timeline.ta.focus){
                 timeline.ta.focus=false
                 return
             }
-            if(Qt.platform.os!=='android')Qt.quit()
+            //if(Qt.platform.os!=='android')Qt.quit()
         }
     }
     Shortcut{
