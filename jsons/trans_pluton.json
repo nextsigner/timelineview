@@ -1,15 +1,15 @@
 {
   "title": "Entrada de Plutón a los signos desde el año 1912 hasta 2068",
-  "description": "El planeta Plutón, tarda entre 18 y 20 años en recorrer °30 de longitud de arco en la rueda zodiacal, es decir, tarda ese tiempo aproximado en transitar por todo un signo del zodiaco que tienen en total °30, por 12, suman los °360.",
+  "description": "Plutón tarda 247.9 años en completar su órbita. Visto desde la Tierra, recorre los 30° de cada signo zodiacal en un promedio de 21 años. Su órbita es muy excéntrica: el tránsito más lento ocurre en Tauro (32 años) durante su afelio, la distancia más lejana al Sol; mientras que el más rápido ocurre en Escorpio (12 años) durante su perihelio, su punto más cercano al Sol.",
   "bodie": 9,
   "eventos": [
     {
       "title": "Plutón en Cáncer",
       "description": "Ingreso primario de Plutón al grado 0° de Cáncer. 1) En el plano sociopolítico, el mundo respira una tensa calma colectiva previa al estallido de la Primera Guerra Mundial, con las potencias coloniales europeas inmersas en una agresiva carrera armamentista y alianzas secretas. 2) Socialmente, las demandas laborales se intensifican globalmente y el movimiento sufragista femenino gana una fuerza sin precedentes en el Reino Unido y Estados Unidos. 3) Culturalmente, las vanguardias artísticas rompen moldes tradicionales con el auge del cubismo de Picasso y el futurismo, desafiando la estética decimonónica. 4) A nivel científico, la física experimenta una revolución silenciosa mientras Albert Einstein expande sus teorías y se asientan las bases de la mecánica cuántica. 5) En el ámbito tecnológico, el hundimiento del RMS Titanic meses antes impulsa las primeras regulaciones globales obligatorias de radiotelegrafía marina. 6) Desde una perspectiva religiosa, el panorama occidental lidia con el impacto del modernismo teológico y el cuestionamiento de los dogmas tradicionales frente al avance de la ciencia secular. 7) Estadísticamente, la población mundial alcanza un estimado histórico de 1.800 millones de habitantes, concentrados mayoritariamente en entornos rurales que empiezan a migrar a las urbes. 8) Económicamente, la consolidación de la segunda revolución industrial masifica la producción en cadena gracias a los métodos emergentes de Henry Ford. 9) Las dinámicas de entretenimiento ven el nacimiento de los primeros largometrajes cinematográficos mudos, transformando el consumo cultural de las masas urbanas. 10) El colonialismo europeo registra su máxima expansión geográfica en África y Asia, configurando tensiones geopolíticas que redefinirán los mapas del planeta pocos años después.",
-      "day": 11,
+      "day": 10,
       "month": 9,
       "year": 1912,
-      "hour": 14,
+      "hour": 17,
       "minute": 15,
       "gmt": 0.0,
       "place": "United Kingdom",
@@ -20,10 +20,10 @@
     {
       "title": "Plutón en Leo",
       "description": "Ingreso primario de Plutón al grado 0° de Leo. 1) Geopolíticamente, el año está marcado por el sangriento transcurso de la Guerra Civil Española y la agresiva expansión de los regímenes fascistas en Europa, antesala directa de la Segunda Guerra Mundial. 2) En lo social, las secuelas psicológicas y financieras de la Gran Depresión de 1929 todavía flagelan a las clases trabajadoras de las democracias occidentales. 3) Tecnológicamente, la aviación comercial vive una era dorada de récords, ensombrecida ese año por la trágica y mediática destrucción del dirigible Hindenburg. 4) Científicamente, la física nuclear avanza a pasos agigantados tras lograrse los primeros experimentos exitosos de fisión artificial en laboratorios internacionales. 5) En el espectro religioso, el papado de Pío XI alza la voz mediante encíclicas críticas que condenan explícitamente el totalitarismo nazi y el comunismo ateo. 6) Culturalmente, el cine sonoro se consolida como el gran escape de masas con el estreno de los primeros largometrajes animados a color de Disney. 7) Estadísticamente, la población mundial ronda los 2.200 millones de personas, y las grandes metrópolis como Nueva York y Londres superan tasas de densidad nunca antes vistas. 8) El panorama comunicacional se transforma debido a la radio, que se convierte en el electrodoméstico central del hogar para recibir noticias y propaganda política en tiempo real. 9) En la esfera artística, el surrealismo alcanza su madurez institucional, reflejando en sus lienzos las ansiedades e incertidumbres de una sociedad al borde del abismo bélico. 10) Las políticas económicas viran masivamente hacia el intervencionismo estatal, inspiradas en las teorías de Keynes para intentar reactivar el empleo y el consumo interno.",
-      "day": 8,
+      "day": 7,
       "month": 10,
       "year": 1937,
-      "hour": 11,
+      "hour": 15,
       "minute": 23,
       "gmt": 0.0,
       "place": "United Kingdom",

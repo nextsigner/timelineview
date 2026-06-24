@@ -244,7 +244,7 @@ Rectangle {
                     id: datoCtx
                     text: r.d1
                     width: r.width-app.fs*0.5
-                    font.pixelSize: app.fs*0.5
+                    font.pixelSize: app.fs*0.75
                     color: apps.fontColor
                     wrapMode: Text.WordWrap
                     anchors.horizontalCenter: parent.horizontalCenter
@@ -253,14 +253,14 @@ Rectangle {
                     id: datoFecha
                     text: '<b>'+r.d2+'</b>'
                     width: r.width-app.fs*0.75
-                    font.pixelSize: app.fs*0.5
+                    font.pixelSize: app.fs*0.75
                     color: apps.fontColor
                     horizontalAlignment: Text.AlignHCenter
                     wrapMode: Text.WordWrap
                     anchors.horizontalCenter: parent.horizontalCenter
                 }
                 Rectangle{
-                    width: parent.parent.width
+                    width: parent.parent.width//-app.fs
                     //height: xDatos.height-app.fs
                     height: xDatos.height-datoCtx.contentHeight-datoFecha.contentHeight-(parent.spacing*2)
                     color: 'transparent'
@@ -273,15 +273,15 @@ Rectangle {
                         anchors.fill: parent
                         contentWidth: width
                         contentHeight: datoDes.contentHeight+app.fs*10
-                        anchors.centerIn: parent
+                        //anchors.centerIn: parent
                         TextArea{
                             id: datoDes
                             text: r.d3.replace(/\. /g, '\n\n')
-                            width: r.width-app.fs*0.5
-                            font.pixelSize: app.fs*0.5
+                            width: r.width-app.fs*2
+                            font.pixelSize: app.fs*0.75
                             color: apps.fontColor
                             wrapMode: Text.WordWrap
-                            anchors.centerIn: parent
+                            //anchors.centerIn: parent
 
                         }
                     }

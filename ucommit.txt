@@ -1,1 +1,1 @@
-i7: Se corrije json de trans plutón
+i7: Se ajustan datos de json plutón entrada a Leo
