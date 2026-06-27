@@ -1,1 +1,1 @@
-i7: Se ajustan datos de json plutón entrada a Leo 2
+i7: Se corrige string de las comillas para los minutos
